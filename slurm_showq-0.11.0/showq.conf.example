@@ -1,0 +1,6 @@
+# Define total number of hosts and cores per host for use in the
+# active utilization output of showq
+
+hosts_available=6400
+slots_per_host_default=16
+

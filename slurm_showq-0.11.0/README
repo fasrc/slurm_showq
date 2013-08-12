@@ -1,0 +1,170 @@
+
+A "showq" style job summary utility for SLURM. Useful for generating a
+summary of all running, pending, and blocked jobs.
+
+Texas Advanced Computing Center
+Originally: November 2012
+karl@tacc.utexas.edu
+
+-------------------
+Build Instructions:
+-------------------
+
+The build system uses standard auto-tools and should, in theory, work
+with:
+
+$ ./configure
+$ make
+
+If successful, the resulting binary is named "showq". You will need
+the SLURM development headers installed and if configure cannot find
+your SLURM location, try ./configure --with-slurm=<slurm-path>
+
+--------------
+General Usage:
+--------------
+
+# ./showq --help
+
+Usage: slurm_showq [OPTIONS]
+
+Thus utility summarizes all running, idle, and pending jobs 
+along with any upcoming advanced reservations in the SLURM batch system.
+
+OPTIONS:
+  --help                  generate help message and exit
+  --version               output version information and exit
+  -l [ --long ]           enable more verbose (long) listing
+  -u [ --user ]           display jobs for current user only
+  -U <username>           display jobs for username only
+
+---------------
+Example Output:
+---------------
+
+Generates output of the form shown below.  Place a "showq.conf" config
+file in the location where your "showq" binary is located to define
+the total number of hosts available (only required if you want to have
+a currently active % line of output in showq for SLURM).  
+
+ACTIVE JOBS--------------------
+JOBID     JOBNAME    USERNAME      STATE   CORE   REMAINING  STARTTIME
+================================================================================
+15574     HOMME      viennej       Running 1024    21:34:48  Thu Jan  3 07:49:23
+15575     HOMME      viennej       Running 1024    21:35:25  Thu Jan  3 07:50:00
+15576     HOMME      viennej       Running 1024    21:38:29  Thu Jan  3 07:53:04
+15577     HOMME      viennej       Running 1024    21:39:55  Thu Jan  3 07:54:30
+15578     HOMME      viennej       Running 1024    21:41:13  Thu Jan  3 07:55:48
+15579     HOMME      viennej       Running 1024    21:42:14  Thu Jan  3 07:56:49
+15580     HOMME      viennej       Running 1024    21:44:18  Thu Jan  3 07:58:53
+15581     HOMME      viennej       Running 1024    21:45:46  Thu Jan  3 08:00:21
+15582     HOMME      viennej       Running 1024    21:46:59  Thu Jan  3 08:01:34
+15583     HOMME      viennej       Running 1024    21:47:45  Thu Jan  3 08:02:20
+16436     HOMME      viennej       Running 1024    21:52:20  Thu Jan  3 08:06:55
+16437     HOMME      viennej       Running 1024    21:53:53  Thu Jan  3 08:08:28
+16438     HOMME      viennej       Running 1024    21:54:51  Thu Jan  3 08:09:26
+16439     HOMME      viennej       Running 1024    21:55:32  Thu Jan  3 08:10:07
+16440     HOMME      viennej       Running 1024    22:02:41  Thu Jan  3 08:17:16
+16455     HOMME      viennej       Running 2048     5:50:48  Thu Jan  3 08:05:23
+17541     HOMME      viennej       Running 4096     4:13:57  Thu Jan  3 12:28:32
+17728     relaxing1  lychen        Running 960      4:11:24  Thu Jan  3 12:25:59
+17873     iq_ms_0000 lars          Running 16       1:06:45  Thu Jan  3 13:21:20
+17874     iq_ms_0000 lars          Running 16       1:07:09  Thu Jan  3 13:21:44
+17875     iq_ms_0000 lars          Running 16       1:07:25  Thu Jan  3 13:22:00
+17906     bash       mccalpin      Running 16       1:52:24  Thu Jan  3 14:06:59
+17907     bash       tg802228      Running 128      3:12:04  Thu Jan  3 15:26:39
+17908     bash       rauta         Running 16       2:02:08  Thu Jan  3 14:16:43
+17930     iq_ms_0000 lars          Running 16       3:08:19  Thu Jan  3 15:22:54
+17931     iq_ms_0000 lars          Running 16       3:08:19  Thu Jan  3 15:22:54
+17932     iq_ms_0000 lars          Running 16       3:10:50  Thu Jan  3 15:25:25
+17934     iq_ms_0000 lars          Running 16       3:12:04  Thu Jan  3 15:26:39
+17936     bash       viennej       Running 16       3:12:04  Thu Jan  3 15:26:39
+17943     h2mol-slep guan          Running 32       5:57:06  Thu Jan  3 15:11:41
+17945     bash       carlos        Running 16       3:12:37  Thu Jan  3 15:27:12
+17949     iq_ms_0000 lars          Running 16       3:18:21  Thu Jan  3 15:32:56
+17950     iq_ms_0000 lars          Running 16       3:18:21  Thu Jan  3 15:32:56
+17951     iq_ms_0000 lars          Running 16       3:18:51  Thu Jan  3 15:33:26
+17952     iq_ms_0000 lars          Running 16       3:24:51  Thu Jan  3 15:39:26
+17953     iq_ms_0000 lars          Running 16       3:25:21  Thu Jan  3 15:39:56
+17956     bash       bureddy       Running 368     11:44:46  Thu Jan  3 15:59:21
+17960     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17961     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17962     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17963     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17964     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17965     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17966     benchmarks eschnett      Running 16       0:55:51  Thu Jan  3 16:11:26
+17967     bash       cazes         Running 32       3:56:44  Thu Jan  3 16:11:19
+17968     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17969     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17970     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17971     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17972     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17973     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17974     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+17975     benchmarks eschnett      Running 16       0:55:52  Thu Jan  3 16:11:27
+
+      53 active jobs : 1470 of 6416 hosts ( 22.91 %)
+
+WAITING JOBS------------------------
+JOBID     JOBNAME    USERNAME      STATE   CORE     WCLIMIT  QUEUETIME
+================================================================================
+14595     pal-14     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:45
+16336     di3        wuzhe         Waiting 1024    12:00:00  Fri Dec 28 20:51:59
+16441     HOMME      viennej       Waiting 1024    30:00:00  Sun Dec 30 18:09:29
+16442     HOMME      viennej       Waiting 1024    30:00:00  Sun Dec 30 18:09:31
+16443     HOMME      viennej       Waiting 1024    30:00:00  Sun Dec 30 18:09:34
+16444     HOMME      viennej       Waiting 1024    30:00:00  Sun Dec 30 18:09:39
+16445     HOMME      viennej       Waiting 1024    30:00:00  Sun Dec 30 18:09:43
+17369     myMPI      liujuy        Waiting 4       24:00:00  Tue Jan  1 18:52:36
+17524     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:47
+17535     xyl.0.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:26:51
+17542     HOMME      viennej       Waiting 8192     4:00:00  Wed Jan  2 11:32:02
+17610     just_hel   wuzhe         Waiting 1024    12:00:00  Wed Jan  2 23:23:45
+17613     nohel      wuzhe         Waiting 1024    12:00:00  Wed Jan  2 23:26:02
+17635     t42r36C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:56
+17756     h2mol-real guan          Waiting 2928    12:00:00  Thu Jan  3 10:38:29
+17758     h2mol-real guan          Waiting 2928    12:00:00  Thu Jan  3 10:40:59
+17798     wrf_lrg_10 cazes         Waiting 10240    1:30:00  Thu Jan  3 11:20:22
+17862     myMPI      liujuy        Waiting 8       24:00:00  Thu Jan  3 13:11:53
+17863     myMPI      liujuy        Waiting 16      24:00:00  Thu Jan  3 13:12:20
+17864     myMPI      liujuy        Waiting 32      24:00:00  Thu Jan  3 13:12:42
+17865     myMPI      liujuy        Waiting 64      24:00:00  Thu Jan  3 13:13:03
+
+BLOCKED JOBS--
+JOBID     JOBNAME    USERNAME      STATE   CORE     WCLIMIT  QUEUETIME
+================================================================================
+14596     pal-15     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:45
+14597     pal-16     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:45
+14598     pal-17     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:45
+14599     pal-18     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:46
+14600     pal-19     tg804247      Waiting 768     12:00:00  Sun Dec 23 22:45:46
+16337     di3        wuzhe         Waiting 1024    12:00:00  Fri Dec 28 20:52:26
+17525     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:47
+17526     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:48
+17527     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:48
+17528     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:48
+17529     xyl.1.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:24:48
+17536     xyl.0.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:26:51
+17537     xyl.0.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:26:51
+17538     xyl.0.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:26:51
+17539     xyl.0.0    bernardi      Waiting 480     12:00:00  Wed Jan  2 11:26:51
+17611     just_hel   wuzhe         Waiting 1024    12:00:00  Wed Jan  2 23:24:17
+17614     nohel      wuzhe         Waiting 1024    12:00:00  Wed Jan  2 23:27:21
+17636     t42r37C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:57
+17637     t42r38C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:57
+17638     t42r39C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:57
+17639     t42r40C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:58
+17640     t42r41C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:58
+17641     t42r42C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:58
+17642     t42r43C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:58
+17643     t42r44C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:59
+17644     t42r45C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:59
+17645     t42r46C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:51:59
+17646     t42r47C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:52:00
+17647     t42r48C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:52:00
+17648     t42r49C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:52:00
+17649     t42r50C    hangyu        Waiting 320     12:00:00  Thu Jan  3 00:52:01
+
+Total Jobs: 105   Active Jobs: 53    Idle Jobs: 21    Blocked Jobs: 31  
+
