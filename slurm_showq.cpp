@@ -445,9 +445,10 @@ void Slurm_Showq::query_running_jobs()
 		continue;
 
 
-	  if(job->state_reason == WAIT_DEPENDENCY ||
-	     job->state_reason == WAIT_HELD       ||
-	     job->state_reason == WAIT_TIME       || 
+	  if(job->state_reason == WAIT_DEPENDENCY       ||
+	     job->state_reason == WAIT_HELD             ||
+	     job->state_reason == WAIT_TIME             || 
+	     job->state_reason == WAIT_ASSOC_JOB_LIMIT  || 
 	     job->state_reason == WAIT_HELD_USER )
 	    {
 	      blocked_jobs++;
@@ -547,8 +548,9 @@ void Slurm_Showq::query_running_jobs()
 	  	  if(job->job_state != JOB_PENDING)
 	  	    continue;
 
-	  if(job->state_reason != WAIT_DEPENDENCY &&
-	     job->state_reason != WAIT_HELD       &&
+	  if(job->state_reason != WAIT_DEPENDENCY      &&
+	     job->state_reason != WAIT_ASSOC_JOB_LIMIT &&
+	     job->state_reason != WAIT_HELD            &&
 	     job->state_reason != WAIT_HELD_USER )
 	    {
 	      continue;
