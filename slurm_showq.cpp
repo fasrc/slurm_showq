@@ -556,8 +556,8 @@ void Slurm_Showq::query_running_jobs()
 	      continue;
 	    }
 
-	    // Only display blocked jobs to the user who owns them
-	    if((strcmp(current_user,uid_to_string(job->user_id).c_str()) != 0) )
+	    // Only display blocked jobs to the user who owns them, or root.
+	    if( (strcmp(current_user,uid_to_string(job->user_id).c_str()) != 0) && (strcmp(current_user,"root") != 0) )
 		continue;
 
 	  // Display job info
