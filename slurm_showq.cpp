@@ -568,7 +568,11 @@ void Slurm_Showq::query_running_jobs()
 	  jobuser_short[14] = '\0';
 	  printf("%-14s", jobuser_short);
 
-	  printf("%-8s","Waiting");
+	  if(job->state_reason == WAIT_ASSOC_JOB_LIMIT)
+	  	printf("%-8s","Quota");
+	  else
+	  	printf("%-8s","Waiting");
+
 	  printf("%-6i ",job->num_cpus);
 
 	  if(long_listing)
