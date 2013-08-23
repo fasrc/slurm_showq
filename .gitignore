@@ -4,3 +4,10 @@
 *.[oa]
 *~
 autom4te.cache/
+.deps/
+Makefile
+config.h
+config.log
+config.status
+showq
+stamp-h1
