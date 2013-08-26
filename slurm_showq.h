@@ -68,6 +68,7 @@ private:
   
   // Command line controls
 
+  bool  show_blocked;
   bool  long_listing;
   bool  user_jobs_only;
   bool  named_user_jobs_only;

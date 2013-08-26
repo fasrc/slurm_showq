@@ -37,6 +37,7 @@ along with any upcoming advanced reservations in the SLURM batch system.
 OPTIONS:
   --help                  generate help message and exit
   --version               output version information and exit
+  -b [ --blocked ]        display all blocked jobs
   -l [ --long ]           enable more verbose (long) listing
   -u [ --user ]           display jobs for current user only
   -U <username>           display jobs for username only
