@@ -463,6 +463,7 @@ void Slurm_Showq::query_running_jobs()
 	     job->state_reason != FAIL_DOWN_PARTITION  && 
 	     job->state_reason != WAIT_PART_DOWN       && 
 	     job->state_reason != WAIT_NO_REASON       && 
+	     job->state_reason != WAIT_QOS_RESOURCE_LIMIT && 
 	     job->state_reason != WAIT_RESERVATION )
 	    {
 	      printf("[Warn]: unknown job state - pending job reason = %i\n",job->state_reason);
