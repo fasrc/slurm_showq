@@ -33,6 +33,10 @@
 
 using namespace std;
 
+// Type for a user cache mapping uid <-> username.
+# include <map>
+typedef std::map<uid_t, std::string> TUserCache;
+
 #include <sys/types.h>
 #include <pwd.h>
 #include <libgen.h>
