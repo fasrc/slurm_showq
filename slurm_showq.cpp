@@ -900,12 +900,26 @@ std::string Slurm_Showq::uid_to_string(uid_t id)
   std::string username="nobody";
   struct passwd *pwd;
 
-  if( (pwd = getpwuid(id)) == NULL)
-    printf("Error: unable to ascertain user for uid = %u\n",id);
-  else
+  static TUserCache UserUidMap;
+
+  if ( UserUidMap.find(id) == UserUidMap.end() )
+  {
+
+    pwd = getpwuid(id);
+    if (NULL == pwd)
+    {
+      printf("Error: unable to ascertain user for uid = %u\n",id);
+    }
+    else
     {
       username = pwd->pw_name;
+      UserUidMap[id]=username;
     }
+  }
+  else
+  {
+    username = UserUidMap[id];
+  }
 
   return(username);
       
