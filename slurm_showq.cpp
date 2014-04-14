@@ -233,7 +233,10 @@ void Slurm_Showq::query_running_jobs()
 
 	  printf("%-10i", job->job_id);  
 
-	  strncpy(jobname_short,job->name,10);
+	  if(NULL != job->name)
+		strncpy(jobname_short,job->name,10);
+	  else
+		strncpy(jobname_short,"(null)",10);
 	  jobname_short[10] = '\0';
 	  printf("%-11s",jobname_short); 
 
@@ -476,7 +479,10 @@ void Slurm_Showq::query_running_jobs()
 
 	  printf("%-10i", job->job_id);
 
-	  strncpy(jobname_short,job->name,10);
+	  if(NULL != job->name)
+		strncpy(jobname_short,job->name,10);
+	  else
+		strncpy(jobname_short,"(null)",10);
 	  jobname_short[10] = '\0';
 	  printf("%-11s",jobname_short);
 
@@ -565,7 +571,10 @@ void Slurm_Showq::query_running_jobs()
 
 	  printf("%-10i", job->job_id);
 
-	  strncpy(jobname_short,job->name,10);
+	  if(NULL != job->name)
+		strncpy(jobname_short,job->name,10);
+	  else
+		strncpy(jobname_short,"(null)",10);
 	  jobname_short[10] = '\0';
 	  printf("%-11s",jobname_short);
 
@@ -651,7 +660,10 @@ void Slurm_Showq::query_running_jobs()
 	  if(secs_remain < 0)
 	    secs_remain = -secs_remain;
 
-	  strncpy(jobname_short,job->name,10);
+	  if(NULL != job->name)
+		strncpy(jobname_short,job->name,10);
+	  else
+		strncpy(jobname_short,"(null)",10);
 	  jobname_short[10] = '\0';
 	  strncpy(jobuser_short,uid_to_string(job->user_id).c_str(),14);
 	  jobuser_short[14] = '\0';
