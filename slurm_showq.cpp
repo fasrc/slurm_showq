@@ -50,12 +50,15 @@ void Slurm_Showq::query_running_jobs()
   time_t current_time, remain_time;
   hostlist_t job_nodelist;
   char *host;
+  char *token;
+  char *delimiters = ",";
   char jobuser_short  [256];
   char jobname_short  [256];
   char queuename_short[256];
   int i, j, k, n, numhl, status;
   int pend_id[100000], new_id_order[100000], priority[100000], id_temp[100000];
   bool sorted;
+  bool partition_true;
 
   int rjobs  = 0;
   int rprocs = 0;
@@ -221,7 +224,6 @@ void Slurm_Showq::query_running_jobs()
 	    }
 
 	  // only displaying running jobs currently...
-
 	  if( job->job_state != JOB_RUNNING )
 	    continue;
 	  if ((local_user_jobs_only) && 
@@ -455,15 +457,33 @@ void Slurm_Showq::query_running_jobs()
 
       strncpy(queuename_short,job->partition,255);
 
+/*	  printf("Partition Name: %s\n",queuename_short);
+
+	  token = strtok(queuename_short,delimiters);
+
+	  printf("Split Partition Name: %s\n",token); */
+
 	  if(job->job_state != JOB_PENDING)
 	    continue;
 	  if ((local_user_jobs_only) && 
 	      (strcmp(current_user,uid_to_string(job->user_id).c_str()) != 0) )
 	    continue;
-	  if ((named_partition_jobs_only) && 
+	  /*if ((named_partition_jobs_only) && 
 		  (strcmp(current_partition,queuename_short) != 0) )
-		continue;
+		continue; */
 
+      if (named_partition_jobs_only) {
+		partition_true = 1;
+		token = strtok(queuename_short,delimiters);
+		for(;;) {
+		  /*printf("Split Partition %s\n",token);*/
+		  if (token == NULL) break;
+		  if (strcmp(current_partition,token) == 0) partition_true = 0;
+		  token = strtok(NULL,delimiters);
+        }
+      }
+
+	  if ((named_partition_jobs_only) && (partition_true)) continue;
 
 	  if(job->state_reason == WAIT_DEPENDENCY       ||
 	     job->state_reason == WAIT_HELD             ||
