@@ -52,12 +52,13 @@ along with any upcoming advanced reservations in the SLURM batch system.
 OPTIONS:
   --help                  generate help message and exit
   --version               output version information and exit
-  -b [ --blocked ]        display all blocked jobs
+  --all-reserv            show all advanced reservations
   -l [ --long ]           enable more verbose (long) listing
   -u [ --user ]           display jobs for current user only
   -U <username>           display jobs for username only
   -p, -q partition        display jobs for partition/queue
   -o                      display pending jobs in order of priority
+  -s                      display job summary only
 
 
 ---------------
