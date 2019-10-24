@@ -99,6 +99,7 @@ private:
   bool  show_all_reserv;
   bool  show_utilization;
   bool  sort_by_priority;
+  bool  summary_only;
   float RES_LEAD_WINDOW;
 
   std::string progname;		 // binary name for stdout
