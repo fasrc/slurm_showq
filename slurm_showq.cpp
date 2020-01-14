@@ -503,25 +503,35 @@ void Slurm_Showq::query_running_jobs()
 
 	  if ((named_partition_jobs_only) && (partition_true)) continue;
 
-	  if(job->state_reason == WAIT_DEPENDENCY       ||
-	     job->state_reason == WAIT_HELD             ||
-	     job->state_reason == WAIT_TIME             || 
-	     job->state_reason == WAIT_ASSOC_JOB_LIMIT  || 
+	  if(job->state_reason == WAIT_DEPENDENCY               ||
+	     job->state_reason == WAIT_HELD                     ||
+	     job->state_reason == WAIT_TIME                     ||
+	     job->state_reason == WAIT_ASSOC_JOB_LIMIT          ||
+	     job->state_reason == WAIT_QOS_MAX_CPU_PER_JOB      ||
+	     job->state_reason == WAIT_QOS_MAX_CPU_MINS_PER_JOB ||
+	     job->state_reason == WAIT_QOS_MAX_NODE_PER_JOB     ||
+	     job->state_reason == WAIT_QOS_MAX_WALL_PER_JOB     ||
 	     job->state_reason == WAIT_HELD_USER )
 	    {
 	      blocked_jobs++;
 	      continue;
 	    }
 
-	  if(job->state_reason != WAIT_PRIORITY        && 
-	     job->state_reason != WAIT_RESOURCES       &&
-	     job->state_reason != WAIT_NODE_NOT_AVAIL  &&
-	     job->state_reason != WAIT_PART_NODE_LIMIT &&
-	     job->state_reason != WAIT_PART_TIME_LIMIT && 
-	     job->state_reason != FAIL_DOWN_PARTITION  && 
-	     job->state_reason != WAIT_PART_DOWN       && 
-	     job->state_reason != WAIT_NO_REASON       && 
-	     job->state_reason != WAIT_QOS_RESOURCE_LIMIT && 
+	  if(job->state_reason != WAIT_PRIORITY                 && 
+	     job->state_reason != WAIT_RESOURCES                &&
+	     job->state_reason != WAIT_NODE_NOT_AVAIL           &&
+	     job->state_reason != WAIT_PART_NODE_LIMIT          &&
+	     job->state_reason != WAIT_PART_TIME_LIMIT          && 
+	     job->state_reason != FAIL_DOWN_PARTITION           && 
+	     job->state_reason != WAIT_PART_DOWN                && 
+	     job->state_reason != WAIT_NO_REASON                && 
+	     job->state_reason != WAIT_QOS_JOB_LIMIT            &&
+	     job->state_reason != WAIT_QOS_RESOURCE_LIMIT       &&
+	     job->state_reason != WAIT_QOS_TIME_LIMIT           &&
+	     job->state_reason != WAIT_QOS_MAX_CPU_PER_USER     &&
+	     job->state_reason != WAIT_QOS_MAX_JOB_PER_USER     &&
+	     job->state_reason != WAIT_QOS_MAX_NODE_PER_USER    &&
+	     job->state_reason != WAIT_QOS_MAX_SUB_JOB          &&
 	     job->state_reason != WAIT_RESERVATION )
 	    {
 	      printf("[Warn]: unknown job state - pending job reason = %i\n",job->state_reason);
