@@ -977,11 +977,7 @@ std::string Slurm_Showq::uid_to_string(uid_t id)
   {
 
     pwd = getpwuid(id);
-    if (NULL == pwd)
-    {
-      printf("Error: unable to ascertain user for uid = %u\n",id);
-    }
-    else
+    if (NULL != pwd)
     {
       username = pwd->pw_name;
       UserUidMap[id]=username;
