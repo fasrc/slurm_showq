@@ -62,10 +62,11 @@ void Slurm_Showq::query_running_jobs()
 
   int rjobs  = 0;
   int rprocs = 0;
+  int rgpus  = 0;
   int rnodes = 0;
   int alreadycounted;
 
-  int dprocs, dnodes;
+  int dprocs, dgpus, dnodes;
   int ijobs, bjobs, error_jobs;
   int running_jobs; 
   int reserv_procs;
@@ -157,13 +158,13 @@ void Slurm_Showq::query_running_jobs()
        printf("ACTIVE JOBS--------------------\n");
       if(long_listing)
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   NODE QUEUE         REMAINING  STARTTIME\n");
-	  printf("===================================================================================================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU    NODE QUEUE         REMAINING  STARTTIME\n");
+	  printf("=======================================================================================================\n");
 	}
       else
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   REMAINING  STARTTIME\n");
-	  printf("================================================================================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU    REMAINING  STARTTIME\n");
+	  printf("====================================================================================\n");
 	}
       }
     
@@ -274,6 +275,7 @@ void Slurm_Showq::query_running_jobs()
 
 	    printf("%-8s","Running");
 	    printf("%-6i ",job->num_cpus);;
+	    printf("%-6s ",job->tres_req_str);;
 	    }
 	  if(long_listing)
 	    {
