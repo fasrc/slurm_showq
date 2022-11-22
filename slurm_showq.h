@@ -67,7 +67,7 @@ typedef std::map<uid_t, std::string> TUserCache;
 #include <cstdlib>
 #include <vector>
 
-#define VERSION 0.11
+#define VERSION 0.12
 
 class Slurm_Showq {
 
