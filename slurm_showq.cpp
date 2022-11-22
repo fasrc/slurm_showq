@@ -52,9 +52,12 @@ void Slurm_Showq::query_running_jobs()
   char *host;
   char *token;
   char *delimiters = ",";
+  char *deleq = "=";
   char jobuser_short  [256];
   char jobname_short  [256];
   char queuename_short[256];
+  char tres[256];
+  char gres[256];
   int i, j, k, n, numhl, status;
   int pend_id[100000], new_id_order[100000], priority[100000], id_temp[100000];
   bool sorted;
@@ -67,6 +70,7 @@ void Slurm_Showq::query_running_jobs()
   int alreadycounted;
 
   int dprocs, dgpus, dnodes;
+  int jobgpu;
   int ijobs, bjobs, error_jobs;
   int running_jobs; 
   int reserv_procs;
@@ -252,6 +256,27 @@ void Slurm_Showq::query_running_jobs()
 	      continue;
 	    }
 
+      // Calculate GPU usage
+      jobgpu = 0;
+      strncpy(tres,job->tres_req_str,255);
+
+      if (strstr(tres,"gpu"))
+      {
+	    token = strtok(tres,delimiters);
+
+        for(;;) {
+          if (strstr(token,"gpu"))
+          {
+            token = strtok(token,deleq);
+            token = strtok(NULL,deleq);
+            jobgpu = atoi(token);
+            break;
+          }
+		  if (token == NULL) break;
+		  token = strtok(NULL,delimiters);
+        }
+      }
+
 	  // Display job info
         if(!summary_only)
           {    
@@ -275,7 +300,7 @@ void Slurm_Showq::query_running_jobs()
 
 	    printf("%-8s","Running");
 	    printf("%-6i ",job->num_cpus);;
-	    printf("%-6s ",job->tres_req_str);;
+	    printf("%-6i ",jobgpu);;
 	    }
 	  if(long_listing)
 	    {
@@ -418,13 +443,13 @@ void Slurm_Showq::query_running_jobs()
       printf("\nWAITING JOBS------------------------\n");
       if(long_listing)
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE  HOST  QUEUE           WCLIMIT  QUEUETIME\n");
-	  printf("=======================================================================-===========================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU    HOST  QUEUE           WCLIMIT  QUEUETIME\n");
+	  printf("======================================================================================================\n");
 	}
       else
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE     WCLIMIT  QUEUETIME\n");
-	  printf("================================================================================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU     WCLIMIT  QUEUETIME\n");
+	  printf("====================================================================================\n");
 	}
       }
     /* We are going to sort the jobs in order of priorty */
@@ -563,6 +588,29 @@ void Slurm_Showq::query_running_jobs()
 	  printf("%-8s","Waiting");
 	  printf("%-6i ",job->num_cpus);
 
+      // Calculate GPU usage
+      jobgpu = 0;
+      strncpy(tres,job->tres_req_str,255);
+
+      if (strstr(tres,"gpu"))
+      {
+	    token = strtok(tres,delimiters);
+
+        for(;;) {
+          if (strstr(token,"gpu"))
+          {
+            token = strtok(token,deleq);
+            token = strtok(NULL,deleq);
+            jobgpu = atoi(token);
+            break;
+          }
+		  if (token == NULL) break;
+		  token = strtok(NULL,delimiters);
+        }
+      }
+
+      printf("%-6i ",jobgpu);
+
 	  if(long_listing)
 	    {
 	      printf("%-4i ",job->num_nodes);
@@ -609,13 +657,13 @@ void Slurm_Showq::query_running_jobs()
       printf("\nBLOCKED JOBS--\n");
       if(long_listing)
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE  HOST  QUEUE           WCLIMIT  QUEUETIME\n");
-	  printf("=======================================================================-===========================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU    HOST  QUEUE           WCLIMIT  QUEUETIME\n");
+	  printf("=======================================================================================================\n");
 	}
       else
 	{
-	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE     WCLIMIT  QUEUETIME\n");
-	  printf("================================================================================\n");
+	  printf("JOBID     JOBNAME    USERNAME      STATE   CORE   GPU     WCLIMIT  QUEUETIME\n");
+	  printf("====================================================================================\n");
 	}
        }
       for(int i=0; i<pending_jobs.size();i++)
@@ -663,6 +711,29 @@ void Slurm_Showq::query_running_jobs()
 	  	printf("%-8s","Waiting");
 
 	  printf("%-6i ",job->num_cpus);
+
+      // Calculate GPU usage
+      jobgpu = 0;
+      strncpy(tres,job->tres_req_str,255);
+
+      if (strstr(tres,"gpu"))
+      {
+	    token = strtok(tres,delimiters);
+
+        for(;;) {
+          if (strstr(token,"gpu"))
+          {
+            token = strtok(token,deleq);
+            token = strtok(NULL,deleq);
+            jobgpu = atoi(token);
+            break;
+          }
+		  if (token == NULL) break;
+		  token = strtok(NULL,delimiters);
+        }
+      }
+
+      printf("%-6i ",jobgpu);
 
 	  if(long_listing)
 	    {
