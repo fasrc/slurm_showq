@@ -68,6 +68,7 @@ void Slurm_Showq::query_running_jobs()
   int rgpus  = 0;
   int rnodes = 0;
   int alreadycounted;
+  int total_avail_gpus;
 
   int dprocs, dgpus, dnodes;
   int jobgpu;
@@ -341,6 +342,7 @@ void Slurm_Showq::query_running_jobs()
 	  
 	  rjobs++;
 	  rprocs += job->num_cpus;
+      rgpus += jobgpu;
 
 	  /* Need to make sure we aren't double counting nodes */
       /* Lets get the current hostlist */
@@ -401,6 +403,27 @@ void Slurm_Showq::query_running_jobs()
 
 		total_avail_procs = partition->total_cpus;
 		total_avail_nodes = partition->total_nodes;
+
+        // Calculate GPU usage
+        total_avail_gpus = 0;
+        strncpy(tres,partition->tres_fmt_str,255);
+
+        if (strstr(tres,"gpu"))
+        {
+	      token = strtok(tres,delimiters);
+
+          for(;;) {
+            if (strstr(token,"gpu"))
+            {
+              token = strtok(token,deleq);
+              token = strtok(NULL,deleq);
+              total_avail_gpus = atoi(token);
+              break;
+            }
+		    if (token == NULL) break;
+		    token = strtok(NULL,delimiters);
+          }
+        }
 	  }
 	}
       
@@ -413,15 +436,16 @@ void Slurm_Showq::query_running_jobs()
 	  {
 	    printf("\n");
 	    if(rjobs == 1)
-	      printf("  %6i active job  ",rjobs);
+	      printf( "%6i active job  ",rjobs);
 	    else
-	      printf("  %6i active jobs ",rjobs);
+	      printf( "%6i active jobs ",rjobs);
 
 	    if(show_utilization)
 	      printf(": %4i of %4i nodes (%6.2f %%)",rnodes,total_avail_nodes,(float)100.*rnodes/total_avail_nodes);
 
 	    if(named_partition_jobs_only) {
 	      printf(": %4i of %4i cores (%6.2f %%)",rprocs,total_avail_procs,(float)100.*rprocs/total_avail_procs);
+          printf(": %4i of %4i gpus (%6.2f %%)",rgpus,total_avail_gpus,(float)100.*rgpus/max(1,total_avail_gpus));
 	      printf(": %4i of %4i nodes (%6.2f %%)",rnodes,total_avail_nodes,(float)100.*rnodes/total_avail_nodes);
 		}
 
