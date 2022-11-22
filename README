@@ -1,7 +1,7 @@
 A "showq" style job summary utility for SLURM. Useful for generating a
 summary of all running, pending, and blocked jobs.
 
-    Copyright (C) 2013 Karl Schulz, Paul Edmon
+    Copyright (C) 2013, 2022 Karl Schulz, Paul Edmon
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ Texas Advanced Computing Center
 Originally: November 2012
 karl@tacc.utexas.edu
 
-Modified by Paul Edmon at Harvard Research Computing
+Modified by Paul Edmon at FAS Harvard Research Computing
 pedmon@cfa.harvard.edu
 
 -------------------
