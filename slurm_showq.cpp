@@ -251,11 +251,11 @@ void Slurm_Showq::query_running_jobs()
 	  mins_remain  = (remain_time-hours_remain*3600)/60;
 	  secs_remain  = (remain_time - hours_remain*3600 - mins_remain*60);
 	  
-	  if(hours_remain < 0 || mins_remain < 0 || secs_remain < 0)
-	    {	 
-	      printf("[Warn]: runlimit exhausted: runningpending job reason = %i\n",job->state_reason);
-	      continue;
-	    }
+	  //if(hours_remain < 0 || mins_remain < 0 || secs_remain < 0)
+	  //  {	 
+	  //    printf("[Warn]: runlimit exhausted: runningpending job reason = %i\n",job->state_reason);
+	  //    continue;
+	  //  }
 
       // Calculate GPU usage
       jobgpu = 0;
