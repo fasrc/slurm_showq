@@ -48,7 +48,9 @@ int main(int argc, char **argv)
 {
 
   Slurm_Showq sq;
+  char *conf;
 
+  slurm_init(conf);
   sq.parse_supported_options(argc,argv);
   sq.query_running_jobs();
 
