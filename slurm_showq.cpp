@@ -48,7 +48,7 @@ void Slurm_Showq::query_running_jobs()
 {
   char *user, *starttime, *shorttime, *pendreason, *endtime, *submittime;
   time_t current_time, remain_time;
-  hostlist_t job_nodelist;
+  hostlist_t *job_nodelist;
   char *host;
   char *token;
   char *delimiters = ",";
