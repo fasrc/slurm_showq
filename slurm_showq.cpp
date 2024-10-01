@@ -1162,8 +1162,8 @@ void Slurm_Showq::parse_supported_options(int argc, char *argv[])
 
 void Slurm_Showq::print_usage()
 {
-  printf("\nUsage: %s [OPTIONS]\n\n", progname.c_str());
-  printf("Thus utility summarizes all running, idle, and pending jobs \n");
+  printf("\nUsage: %s [OPTIONS]\n\n", "showq");
+  printf("This utility summarizes all running, idle, and pending jobs \n");
   printf("along with any upcoming advanced reservations in the SLURM batch system.\n\n");
 	 
   printf("OPTIONS:\n");
