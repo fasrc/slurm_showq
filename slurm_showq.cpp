@@ -562,10 +562,11 @@ void Slurm_Showq::query_running_jobs()
 	     job->state_reason == WAIT_QOS_MAX_CPU_MINS_PER_JOB ||
 	     job->state_reason == WAIT_QOS_MAX_NODE_PER_JOB     ||
 	     job->state_reason == WAIT_QOS_MAX_WALL_PER_JOB     ||
+             job->state_reason == WAIT_QOS_MAX_GRES_PER_JOB     ||
 	     job->state_reason == WAIT_HELD_USER                ||
-         job->state_reason == FAIL_BAD_CONSTRAINTS          ||
-         job->state_reason == WAIT_PART_CONFIG              ||
-         job->state_reason == WAIT_ARRAY_TASK_LIMIT)
+             job->state_reason == FAIL_BAD_CONSTRAINTS          ||
+             job->state_reason == WAIT_PART_CONFIG              ||
+             job->state_reason == WAIT_ARRAY_TASK_LIMIT)
 	    {
 	      blocked_jobs++;
 	      continue;
@@ -585,6 +586,7 @@ void Slurm_Showq::query_running_jobs()
 	     job->state_reason != WAIT_QOS_MAX_CPU_PER_USER     &&
 	     job->state_reason != WAIT_QOS_MAX_JOB_PER_USER     &&
 	     job->state_reason != WAIT_QOS_MAX_NODE_PER_USER    &&
+             job->state_reason != WAIT_QOS_MAX_GRES_PER_USER    &&
 	     job->state_reason != WAIT_QOS_MAX_SUB_JOB          &&
 	     job->state_reason != WAIT_RESERVATION )
 	    {
@@ -710,10 +712,11 @@ void Slurm_Showq::query_running_jobs()
 	     job->state_reason != WAIT_QOS_MAX_CPU_MINS_PER_JOB &&
 	     job->state_reason != WAIT_QOS_MAX_NODE_PER_JOB     &&
 	     job->state_reason != WAIT_QOS_MAX_WALL_PER_JOB     &&
+             job->state_reason != WAIT_QOS_MAX_GRES_PER_JOB     &&
 	     job->state_reason != WAIT_HELD_USER                &&
-         job->state_reason != FAIL_BAD_CONSTRAINTS          &&
-         job->state_reason != WAIT_PART_CONFIG              &&
-         job->state_reason != WAIT_ARRAY_TASK_LIMIT)
+             job->state_reason != FAIL_BAD_CONSTRAINTS          &&
+             job->state_reason != WAIT_PART_CONFIG              &&
+             job->state_reason != WAIT_ARRAY_TASK_LIMIT)
 	    {
 	      continue;
 	    }
